@@ -1,18 +1,19 @@
-import 'dotenv/config'              // Loads environment variables from .env
-import express from 'express'       // Import Express framework
-import cors from 'cors'             // Enable Cross-Origin Resource Sharing
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
 import connectDB from './configs/mongodb.js';
 
 const PORT = process.env.PORT || 4000;
 const app = express();
-await connectDB()
 
-// Middlewares
-app.use(express.json());  // Parses incoming JSON requests
-app.use(cors());          // Enables CORS
+app.use(express.json());
+app.use(cors());
 
-// Simple API route
-app.get('/', (req, res) => res.send("API Working"));
+app.get('/', (req, res) => res.send("Hello from Vercel Express API"));
 
-// Start server
-app.listen(PORT, () => console.log("Server Running on port " + PORT));
+// Connect to DB first, then start server
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+  })
+  .catch(err => console.error("❌ DB connection failed:", err));
