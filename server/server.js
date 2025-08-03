@@ -1,7 +1,7 @@
 import 'dotenv/config'              // Loads environment variables from .env
 import express from 'express'       // Import Express framework
 import cors from 'cors'             // Enable Cross-Origin Resource Sharing
-import connectDB from './configs/mongpdb.js';
+import connectDB from './configs/mongodb.js';
 
 const PORT = process.env.PORT || 4000;
 const app = express();
